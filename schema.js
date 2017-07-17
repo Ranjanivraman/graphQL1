@@ -27,8 +27,6 @@ import OrderFetcher from './OrderFetcher'
   })
 })
 
-const schema = new GraphQLSchema({
+export const schema = new GraphQLSchema({
   query: query
 });
-
-export default schema;

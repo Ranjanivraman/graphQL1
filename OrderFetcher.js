@@ -41,7 +41,7 @@ const OrderFetcher = {
     .then(res => res.json())
     .then(res => {
       const result = Object.values(res)
-      //console.log(JSON.stringify(result, null, 2))
+      // console.log(JSON.stringify(result, null, 2))
       return result
     });
 
