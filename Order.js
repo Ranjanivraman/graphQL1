@@ -225,7 +225,7 @@ const InvoicesType = new GraphQLObjectType({
 });
 
 
-const Order = new GraphQLObjectType({
+export const Order = new GraphQLObjectType({
   name: 'Order',
   fields: () => ({
     entity_id: {
@@ -662,6 +662,3 @@ const Order = new GraphQLObjectType({
     }
   })
 })
-
-
-export default Order

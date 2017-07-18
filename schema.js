@@ -9,8 +9,8 @@ import {
   GraphQLString
 } from 'graphql';
 
-import Order from './Order'
-import OrderFetcher from './OrderFetcher'
+import { Order } from './Order'
+import { OrderFetcher } from './OrderFetcher'
 
  const query = new GraphQLObjectType({
   description: 'global query object',
