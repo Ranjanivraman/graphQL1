@@ -32,6 +32,20 @@ import { CustomerFetcher } from './CustomerFetcher'
       resolve: () => {
         return CustomerFetcher.getCustomers()
       }
+    },
+
+    customerById: {
+      type: Customer,
+      resolve: () => {
+        return CustomerFetcher.getCustomerById()
+      }
+    },
+
+    customerByEmail: {
+      type: Customer,
+      resolve: () => {
+        return CustomerFetcher.getCustomerByEmail()
+      }
     }
 
   })

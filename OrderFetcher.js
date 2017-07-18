@@ -8,7 +8,7 @@ export const OrderFetcher = {
 
     return mgFetch(url)
     .then(res => res.json())
-    .then(res => stripKeys(res))
+    .then(res => arrayByStrippingKeys(res))
   }
 
 }
