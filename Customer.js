@@ -18,64 +18,44 @@ export const Customer = new GraphQLObjectType({
   fields: () => ({
     created_at: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
-      // TODO: Implement resolver for created_at
-      resolve: () => null,
+      type: GraphQLString
     },
     created_in: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
-      // TODO: Implement resolver for created_in
-      resolve: () => null,
+      type: GraphQLString
     },
     disable_auto_group_change: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
-      // TODO: Implement resolver for disable_auto_group_change
-      resolve: () => null,
+      type: GraphQLString
     },
     dob: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
-      // TODO: Implement resolver for dob
-      resolve: () => null,
+      type: GraphQLString
     },
     email: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
-      // TODO: Implement resolver for email
-      resolve: () => null,
+      type: GraphQLString
     },
     entity_id: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
-      // TODO: Implement resolver for entity_id
-      resolve: () => null,
+      type: GraphQLString
     },
     firstname: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
-      // TODO: Implement resolver for firstname
-      resolve: () => null,
+      type: GraphQLString
     },
     group_id: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
-      // TODO: Implement resolver for group_id
-      resolve: () => null,
+      type: GraphQLString
     },
     lastname: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
-      // TODO: Implement resolver for lastname
-      resolve: () => null,
+      type: GraphQLString
     },
     website_id: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
-      // TODO: Implement resolver for website_id
-      resolve: () => null,
+      type: GraphQLString
     }
   })
-})
+
 })

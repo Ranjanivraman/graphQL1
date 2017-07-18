@@ -40,8 +40,14 @@ export function mgFetch(url) {
   return fetch(url, {
     headers: headers
   })
+  // TODO: this should probably convert it to json and check if there's data or errors and if errors, throw an error...could even have fetchObject and fetchObjects which then do the stripping as well...
 }
 
-export function stripKeys(obj) {
+export function arrayByStrippingKeys(obj) {
   return Object.values(obj)
+}
+
+export function objectByStrippingKey(obj) {
+  const result = Object.values(obj)
+  return result.length == 1 ? result[0] : {}
 }
