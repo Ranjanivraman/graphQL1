@@ -1,9 +1,11 @@
 
-const {
+import {
+  GraphQLList,
   GraphQLString,
   GraphQLObjectType,
-} = require('graphql');
+} from 'graphql';
 
+import { CustomerFetcher } from './CustomerFetcher';
 
 export const Customer = new GraphQLObjectType({
   name: 'Customer',
@@ -51,3 +53,24 @@ export const Customer = new GraphQLObjectType({
   },
 
 });
+
+export const CustomersQuery = {
+  type: new GraphQLList(Customer),
+  resolve: () => {
+    return CustomerFetcher.getCustomers();
+  },
+};
+
+export const CustomerByIdQuery = {
+  type: Customer,
+  resolve: () => {
+    return CustomerFetcher.getCustomerById();
+  },
+};
+
+export const CustomerByEmailQuery = {
+  type: Customer,
+  resolve: () => {
+    return CustomerFetcher.getCustomerByEmail();
+  },
+};

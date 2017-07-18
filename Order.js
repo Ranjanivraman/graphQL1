@@ -1,10 +1,11 @@
 
-const {
+import {
   GraphQLString,
   GraphQLList,
   GraphQLObjectType,
-} = require('graphql');
+} from 'graphql';
 
+import { OrderFetcher } from './OrderFetcher';
 
 const AddressesType = new GraphQLObjectType({
   name: 'addresses',
@@ -655,3 +656,10 @@ export const Order = new GraphQLObjectType({
     },
   },
 });
+
+export const OrdersQuery = {
+  type: new GraphQLList(Order),
+  resolve: () => {
+    return OrderFetcher.getOrders();
+  }
+};
