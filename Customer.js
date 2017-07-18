@@ -54,13 +54,6 @@ export const Customer = new GraphQLObjectType({
 
 });
 
-export const CustomersQuery = {
-  type: new GraphQLList(Customer),
-  resolve: () => {
-    return CustomerFetcher.getCustomers();
-  },
-};
-
 export const CustomerByIdQuery = {
   type: Customer,
   resolve: (obj, args, ctx) => {
