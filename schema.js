@@ -1,21 +1,16 @@
 import {
-  graphql,
-  GraphQLID,
-  GraphQLInt,
   GraphQLList,
-  GraphQLNonNull,
   GraphQLSchema,
   GraphQLObjectType,
-  GraphQLString
 } from 'graphql';
 
-import { Order } from './Order'
-import { OrderFetcher } from './OrderFetcher'
-import { Customer } from './Customer'
-import { CustomerFetcher } from './CustomerFetcher'
+import { Order } from './Order';
+import { OrderFetcher } from './OrderFetcher';
+import { Customer } from './Customer';
+import { CustomerFetcher } from './CustomerFetcher';
 
 
- const query = new GraphQLObjectType({
+const query = new GraphQLObjectType({
   description: 'global query object',
   name: 'Query',
   fields: {
@@ -23,34 +18,34 @@ import { CustomerFetcher } from './CustomerFetcher'
     orders: {
       type: new GraphQLList(Order),
       resolve: () => {
-        return OrderFetcher.getOrders()
-      }
+        return OrderFetcher.getOrders();
+      },
     },
 
     customers: {
       type: new GraphQLList(Customer),
       resolve: () => {
-        return CustomerFetcher.getCustomers()
-      }
+        return CustomerFetcher.getCustomers();
+      },
     },
 
     customerById: {
       type: Customer,
       resolve: () => {
-        return CustomerFetcher.getCustomerById()
-      }
+        return CustomerFetcher.getCustomerById();
+      },
     },
 
     customerByEmail: {
       type: Customer,
       resolve: () => {
-        return CustomerFetcher.getCustomerByEmail()
-      }
-    }
+        return CustomerFetcher.getCustomerByEmail();
+      },
+    },
 
-  }
-})
+  },
+});
 
 export const schema = new GraphQLSchema({
-  query: query
+  query: query,
 });

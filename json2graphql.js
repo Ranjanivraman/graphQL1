@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import generateSchema from 'json-to-graphql'
+import generateSchema from 'json-to-graphql';
 
 /*
 put your json (which should consist of either 1 object or an array of objects all the same type) on stdin.  Popping out of stdout will be a graphql schema derived from the input.  If multiple objects are input, it may be able to infer types better than if just one object is provided.
@@ -33,18 +33,18 @@ and then go to whereever you want the graphql (probably in an editor window, whi
 
 */
 
-var stdin = process.stdin
-var stdout = process.stdout
-var inputChunks = ""
+const stdin = process.stdin;
+const stdout = process.stdout;
+let inputChunks = '';
 
 stdin.setEncoding('utf8');
 
-stdin.on('data', function (chunk) {
+stdin.on('data', (chunk) => {
   inputChunks += chunk;
 });
 
-stdin.on('end', function () {
-  var parsed = JSON.parse(inputChunks);
+stdin.on('end', () => {
+  const parsed = JSON.parse(inputChunks);
   stdout.write(generateSchema(parsed));
   stdout.write('\n');
 });

@@ -1,16 +1,8 @@
 
 const {
-  GraphQLBoolean,
   GraphQLString,
-  GraphQLInt,
-  GraphQLFloat,
-  GraphQLList,
   GraphQLObjectType,
-  GraphQLSchema,
-  GraphQLID,
-  GraphQLNonNull
-} = require('graphql')
-
+} = require('graphql');
 
 
 export const Customer = new GraphQLObjectType({
@@ -18,44 +10,44 @@ export const Customer = new GraphQLObjectType({
   fields: {
     created_at: {
       description: 'enter your description',
-      type: GraphQLString
+      type: GraphQLString,
     },
     created_in: {
       description: 'enter your description',
-      type: GraphQLString
+      type: GraphQLString,
     },
     disable_auto_group_change: {
       description: 'enter your description',
-      type: GraphQLString
+      type: GraphQLString,
     },
     dob: {
       description: 'enter your description',
-      type: GraphQLString
+      type: GraphQLString,
     },
     email: {
       description: 'enter your description',
-      type: GraphQLString
+      type: GraphQLString,
     },
     entity_id: {
       description: 'enter your description',
-      type: GraphQLString
+      type: GraphQLString,
     },
     firstname: {
       description: 'enter your description',
-      type: GraphQLString
+      type: GraphQLString,
     },
     group_id: {
       description: 'enter your description',
-      type: GraphQLString
+      type: GraphQLString,
     },
     lastname: {
       description: 'enter your description',
-      type: GraphQLString
+      type: GraphQLString,
     },
     website_id: {
       description: 'enter your description',
-      type: GraphQLString
-    }
-  }
+      type: GraphQLString,
+    },
+  },
 
-})
+});
