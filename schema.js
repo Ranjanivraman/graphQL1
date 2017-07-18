@@ -8,7 +8,8 @@ import { OrdersQuery } from './Order';
 import {
   CustomerByIdQuery,
   CustomerByEmailQuery,
-  CustomersQuery
+  CustomersQuery,
+  CustomerLoginMutation,
 } from './Customer';
 
 const query = new GraphQLObjectType({
@@ -21,6 +22,16 @@ const query = new GraphQLObjectType({
   },
 });
 
+const mutation = new GraphQLObjectType({
+  description: 'global mutation object',
+  name: 'Mutation',
+  fields: {
+    login: CustomerLoginMutation,
+  },
+});
+
+
 export const schema = new GraphQLSchema({
   query: query,
+  mutation: mutation,
 });

@@ -72,3 +72,21 @@ export const CustomerByEmailQuery = {
     return CustomerFetcher.getCustomerByEmail(email);
   },
 };
+
+export const CustomerLoginMutation = {
+  type: Customer,
+  args: {
+    email: {
+      type: GraphQLString,
+    },
+    password: {
+      type: GraphQLString,
+    },
+  },
+  resolve: (obj, {email, password}) => {
+    if (password != "shhhh") {
+      throw("you must be joking")
+    }
+    return CustomerFetcher.getCustomerByEmail(email);
+  },
+};
