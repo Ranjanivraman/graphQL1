@@ -41,3 +41,7 @@ export function mgFetch(url) {
     headers: headers
   })
 }
+
+export function stripKeys(obj) {
+  return Object.values(obj)
+}
