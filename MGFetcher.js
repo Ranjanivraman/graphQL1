@@ -34,10 +34,12 @@ export function mgFetch(url) {
     oauth.toHeader(oauth.authorize(requestData, token))
   );
 
-  return fetch(url, {
+  let result = fetch(url, {
     headers: headers,
-  });
-  // TODO: this should probably convert it to json and check if there's data or errors and if errors, throw an error...could even have fetchObject and fetchObjects which then do the stripping as well...
+  })
+  .then(res => res.json())
+
+  return result
 }
 
 export function arrayByStrippingKeys(obj) {
