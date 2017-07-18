@@ -64,8 +64,7 @@ export const CustomersQuery = {
 export const CustomerByIdQuery = {
   type: Customer,
   resolve: (obj, args, ctx) => {
-    const customerId = ctx.request.header("deadsecure")
-    return CustomerFetcher.getCustomerById(customerId);
+    return CustomerFetcher.getCustomerById(ctx.customerId);
   },
 };
 

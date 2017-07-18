@@ -11,7 +11,9 @@ graphQLServer.use('/graphql',
   bodyParser.json(),
   graphqlExpress(request => ({
     schema: schema,
-    context: { request: request },
+    context: {
+      customerId: request.header("deadsecure"),
+    },
     debug: true,
   })
 ));

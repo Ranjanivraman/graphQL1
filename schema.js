@@ -16,7 +16,6 @@ const query = new GraphQLObjectType({
   name: 'Query',
   fields: {
     orders: OrdersQuery,
-    customers: CustomersQuery,
     customerById: CustomerByIdQuery,
     customerByEmail: CustomerByEmailQuery,
   },
