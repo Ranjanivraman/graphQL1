@@ -226,7 +226,7 @@ const OrderItemsType = new GraphQLObjectType({
 
 export const Order = new GraphQLObjectType({
   name: 'Order',
-  fields: () => ({
+  fields: {
     address_type: {
       description: 'enter your description',
       type: GraphQLString
@@ -659,5 +659,5 @@ export const Order = new GraphQLObjectType({
       description: 'enter your description',
       type: GraphQLString
     }
-  })
+  }
 })

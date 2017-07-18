@@ -15,7 +15,7 @@ const {
 
 export const Customer = new GraphQLObjectType({
   name: 'Customer',
-  fields: () => ({
+  fields: {
     created_at: {
       description: 'enter your description',
       type: GraphQLString
@@ -56,6 +56,6 @@ export const Customer = new GraphQLObjectType({
       description: 'enter your description',
       type: GraphQLString
     }
-  })
+  }
 
 })

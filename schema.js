@@ -18,7 +18,7 @@ import { CustomerFetcher } from './CustomerFetcher'
  const query = new GraphQLObjectType({
   description: 'global query object',
   name: 'Query',
-  fields: () => ({
+  fields: {
 
     orders: {
       type: new GraphQLList(Order),
@@ -48,7 +48,7 @@ import { CustomerFetcher } from './CustomerFetcher'
       }
     }
 
-  })
+  }
 })
 
 export const schema = new GraphQLSchema({
