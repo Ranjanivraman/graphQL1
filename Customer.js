@@ -63,14 +63,20 @@ export const CustomersQuery = {
 
 export const CustomerByIdQuery = {
   type: Customer,
-  resolve: () => {
-    return CustomerFetcher.getCustomerById();
+  resolve: (obj, args, ctx) => {
+    const customerId = ctx.request.header("deadsecure")
+    return CustomerFetcher.getCustomerById(customerId);
   },
 };
 
 export const CustomerByEmailQuery = {
   type: Customer,
-  resolve: () => {
-    return CustomerFetcher.getCustomerByEmail();
+  args: {
+    email: {
+      type: GraphQLString,
+    },
+  },
+  resolve: (obj, {email}) => {
+    return CustomerFetcher.getCustomerByEmail(email);
   },
 };

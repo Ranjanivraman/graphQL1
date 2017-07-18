@@ -15,7 +15,7 @@ export const CustomerFetcher = {
   },
 
   getCustomerById(customerId) {
-    const url = 'https://api-test2.mgnonprod.co.uk/api/rest/customers?limit=5&filter[1][attribute]=entity_id&filter[1][in]=6370473';
+    const url = `https://api-test2.mgnonprod.co.uk/api/rest/customers?limit=5&filter[1][attribute]=entity_id&filter[1][in]=${customerId}`;
 
     return mgFetch(url)
     .then(res => res.json())
@@ -23,7 +23,7 @@ export const CustomerFetcher = {
   },
 
   getCustomerByEmail(email) {
-    const url = 'https://api-test2.mgnonprod.co.uk/api/rest/customers?limit=5&filter[1][attribute]=email&filter[1][in]=test2app@app.com';
+    const url = `https://api-test2.mgnonprod.co.uk/api/rest/customers?limit=5&filter[1][attribute]=email&filter[1][in]=${email}`;
 
     return mgFetch(url)
     .then(res => res.json())

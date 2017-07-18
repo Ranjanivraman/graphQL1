@@ -7,7 +7,14 @@ const GRAPHQL_PORT = 3000;
 
 const graphQLServer = express();
 
-graphQLServer.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
+graphQLServer.use('/graphql',
+  bodyParser.json(),
+  graphqlExpress(request => ({
+    schema: schema,
+    context: { request: request },
+    debug: true,
+  })
+));
 graphQLServer.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 graphQLServer.listen(GRAPHQL_PORT, () => console.log(

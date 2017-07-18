@@ -15,12 +15,10 @@ const query = new GraphQLObjectType({
   description: 'global query object',
   name: 'Query',
   fields: {
-
     orders: OrdersQuery,
     customers: CustomersQuery,
     customerById: CustomerByIdQuery,
     customerByEmail: CustomerByEmailQuery,
-
   },
 });
 
