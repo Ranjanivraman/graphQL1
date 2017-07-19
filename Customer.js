@@ -4,7 +4,6 @@ import {
   GraphQLString,
   GraphQLObjectType,
 } from 'graphql';
-
 import { CustomerFetcher } from './CustomerFetcher';
 
 export const Customer = new GraphQLObjectType({

@@ -3,8 +3,8 @@ import {
   GraphQLSchema,
   GraphQLObjectType,
 } from 'graphql';
-
 import { OrdersQuery } from './Order';
+import { ProductBySKUQuery } from './Product'
 import {
   CustomerByIdQuery,
   CustomerByEmailQuery,
@@ -19,6 +19,7 @@ const query = new GraphQLObjectType({
     orders: OrdersQuery,
     customerById: CustomerByIdQuery,
     customerByEmail: CustomerByEmailQuery,
+    productBySKU: ProductBySKUQuery,
   },
 });
 

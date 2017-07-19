@@ -4,7 +4,6 @@ import {
   GraphQLList,
   GraphQLObjectType,
 } from 'graphql';
-
 import { OrderFetcher } from './OrderFetcher';
 
 const AddressesType = new GraphQLObjectType({
