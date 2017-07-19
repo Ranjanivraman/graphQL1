@@ -5,6 +5,8 @@ import {
   GraphQLObjectType,
 } from 'graphql';
 import { OrderFetcher } from './OrderFetcher';
+import { Product } from './Product';
+import { ProductFetcher } from './ProductFetcher';
 
 const AddressesType = new GraphQLObjectType({
   name: 'addresses',
@@ -173,6 +175,13 @@ const OrderItemsType = new GraphQLObjectType({
     price_incl_tax: {
       description: 'enter your description',
       type: GraphQLString,
+    },
+    product: {
+      type: Product,
+      resolve: (obj, args, ctx) => {
+        const sku = obj.sku
+        return ProductFetcher.getProductBySKU(sku)
+      },
     },
     qty_canceled: {
       description: 'enter your description',
@@ -660,5 +669,5 @@ export const OrdersQuery = {
   type: new GraphQLList(Order),
   resolve: (obj, args, ctx) => {
     return OrderFetcher.getOrders(ctx.customerId);
-  }
+  },
 };
