@@ -230,62 +230,6 @@ const OrderItemsType = new GraphQLObjectType({
 export const Order = new GraphQLObjectType({
   name: 'Order',
   fields: {
-    address_type: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    city: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    company: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    country_id: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    email: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    firstname: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    lastname: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    middlename: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    postcode: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    prefix: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    region: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    street: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    suffix: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    telephone: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
     addresses: {
       description: 'enter your description',
       type: new GraphQLList(AddressesType),
@@ -410,18 +354,6 @@ export const Order = new GraphQLObjectType({
       description: 'enter your description',
       type: GraphQLString,
     },
-    entity_id: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    increment_id: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    order_id: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
     invoices: {
       description: 'enter your description',
       type: new GraphQLList(InvoicesType),
@@ -438,127 +370,11 @@ export const Order = new GraphQLObjectType({
       description: 'enter your description',
       type: GraphQLString,
     },
-    comment: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    created_at: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    is_customer_notified: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    is_visible_on_front: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    status: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
     order_comments: {
       description: 'enter your description',
       type: new GraphQLList(OrderCommentsType),
     },
     order_currency_code: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    base_discount_amount: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    base_original_price: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    base_price: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    base_price_incl_tax: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    base_row_total: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    base_row_total_incl_tax: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    base_tax_amount: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    discount_amount: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    item_id: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    name: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    original_price: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    parent_item_id: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    price: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    price_incl_tax: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    qty_canceled: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    qty_invoiced: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    qty_ordered: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    qty_refunded: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    qty_shipped: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    row_total: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    row_total_incl_tax: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    sku: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    tax_amount: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    tax_percent: {
       description: 'enter your description',
       type: GraphQLString,
     },
