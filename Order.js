@@ -8,7 +8,7 @@ import {
 import { OrderFetcher } from './OrderFetcher';
 import { Product } from './Product';
 import { ProductFetcher } from './ProductFetcher';
-import { ISO8601Date } from './MomentDate';
+import { ISO8601Date } from './ISO8601Date';
 
 
 const AddressesType = new GraphQLObjectType({
