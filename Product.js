@@ -110,6 +110,21 @@ export const Product = new GraphQLObjectType({
       description: 'enter your description',
       type: GraphQLString,
     },
+    image_url: {
+      description: 'url of the first image in the image set for the product',
+      type: GraphQLString,
+      args: {
+        width: {
+          type: GraphQLInt,
+        },
+        height: {
+          type: GraphQLInt,
+        },
+      },
+      resolve: (obj, {width, height}) => {
+        return ProductFetcher.getImageURLStringForStyle(obj.style_number, width, height);
+      },
+    },
     is_imported: {
       description: 'enter your description',
       type: GraphQLString,

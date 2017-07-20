@@ -37,6 +37,10 @@ export function mgFetch(url) {
   let result = fetch(url, {
     headers: headers,
   })
+  .then(res => {
+    console.log(`${new Date()}, fetch from ${url}`)
+    return res
+  })
   .then(res => res.json())
 
   return result
