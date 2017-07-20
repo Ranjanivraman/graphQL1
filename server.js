@@ -12,7 +12,9 @@ const app = express();
 // define a custom log style for graphQL
 morgan.token('graphql-query', (req) => {
     const {query, variables, operationName} = req.body;
-    return `${new Date()} GRAPHQL: \nOperation Name: ${operationName} \nQuery: ${query} \nVariables: ${JSON.stringify(variables)}`;
+    const opOut = operationName != null ? `${operationName}` : ''
+    const varOut = variables != null ? `, ${JSON.stringify(variables)}` : ''
+    return `${new Date()} GRAPHQL: ${opOut}${varOut}\n${query}----------`;
   });
 
   // parse the body first so it can be used in the logger
