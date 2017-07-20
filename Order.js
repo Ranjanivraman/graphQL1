@@ -4,9 +4,12 @@ import {
   GraphQLList,
   GraphQLObjectType,
 } from 'graphql';
+
 import { OrderFetcher } from './OrderFetcher';
 import { Product } from './Product';
 import { ProductFetcher } from './ProductFetcher';
+import { ISO8601Date } from './MomentDate';
+
 
 const AddressesType = new GraphQLObjectType({
   name: 'addresses',
@@ -300,7 +303,7 @@ export const Order = new GraphQLObjectType({
     },
     created_at: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: ISO8601Date,
     },
     customer_balance_amount: {
       description: 'enter your description',
