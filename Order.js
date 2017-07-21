@@ -1,5 +1,6 @@
 
 import {
+  GraphQLFloat,
   GraphQLString,
   GraphQLList,
   GraphQLObjectType,
@@ -173,11 +174,11 @@ const OrderItemType = new GraphQLObjectType({
     },
     price: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     price_incl_tax: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     product: {
       type: Product,
