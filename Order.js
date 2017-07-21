@@ -11,8 +11,8 @@ import { ProductFetcher } from './ProductFetcher';
 import { ISO8601Date } from './ISO8601Date';
 
 
-const AddressesType = new GraphQLObjectType({
-  name: 'addresses',
+const AddressType = new GraphQLObjectType({
+  name: 'Address',
   fields: {
     address_type: {
       description: 'enter your description',
@@ -74,8 +74,8 @@ const AddressesType = new GraphQLObjectType({
 });
 
 
-const InvoicesType = new GraphQLObjectType({
-  name: 'invoices',
+const InvoiceType = new GraphQLObjectType({
+  name: 'Invoice',
   fields: {
     entity_id: {
       description: 'enter your description',
@@ -93,8 +93,8 @@ const InvoicesType = new GraphQLObjectType({
 });
 
 
-const OrderCommentsType = new GraphQLObjectType({
-  name: 'order_comments',
+const OrderCommentType = new GraphQLObjectType({
+  name: 'OrderComment',
   fields: {
     comment: {
       description: 'enter your description',
@@ -120,8 +120,8 @@ const OrderCommentsType = new GraphQLObjectType({
 });
 
 
-const OrderItemsType = new GraphQLObjectType({
-  name: 'order_items',
+const OrderItemType = new GraphQLObjectType({
+  name: 'OrderItem',
   fields: {
     base_discount_amount: {
       description: 'enter your description',
@@ -235,7 +235,7 @@ export const Order = new GraphQLObjectType({
   fields: {
     addresses: {
       description: 'enter your description',
-      type: new GraphQLList(AddressesType),
+      type: new GraphQLList(AddressType),
     },
     base_currency_code: {
       description: 'enter your description',
@@ -359,7 +359,7 @@ export const Order = new GraphQLObjectType({
     },
     invoices: {
       description: 'enter your description',
-      type: new GraphQLList(InvoicesType),
+      type: new GraphQLList(InvoiceType),
     },
     locale: {
       description: 'enter your description',
@@ -375,7 +375,7 @@ export const Order = new GraphQLObjectType({
     },
     order_comments: {
       description: 'enter your description',
-      type: new GraphQLList(OrderCommentsType),
+      type: new GraphQLList(OrderCommentType),
     },
     order_currency_code: {
       description: 'enter your description',
@@ -383,7 +383,7 @@ export const Order = new GraphQLObjectType({
     },
     order_items: {
       description: 'enter your description',
-      type: new GraphQLList(OrderItemsType),
+      type: new GraphQLList(OrderItemType),
     },
     payment_method: {
       description: 'enter your description',
