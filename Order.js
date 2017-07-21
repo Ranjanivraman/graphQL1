@@ -234,10 +234,6 @@ const OrderItemType = new GraphQLObjectType({
 export const Order = new GraphQLObjectType({
   name: 'Order',
   fields: {
-    addresses: {
-      description: 'enter your description',
-      type: new GraphQLList(AddressType),
-    },
     base_currency_code: {
       description: 'enter your description',
       type: GraphQLString,
@@ -297,6 +293,13 @@ export const Order = new GraphQLObjectType({
     base_total_refunded: {
       description: 'enter your description',
       type: GraphQLString,
+    },
+    billing_address: {
+      description: 'Billing address',
+      type: AddressType,
+      resolve: (obj, args, ctx) => {
+        return obj.addresses.find(elem => elem.address_type == 'billing');
+      },
     },
     coupon_code: {
       description: 'enter your description',
@@ -401,6 +404,13 @@ export const Order = new GraphQLObjectType({
     reward_points_balance: {
       description: 'enter your description',
       type: GraphQLString,
+    },
+    shipping_address: {
+      description: 'Shipping address',
+      type: AddressType,
+      resolve: (obj, args, ctx) => {
+        return obj.addresses.find(elem => elem.address_type == 'shipping');
+      },
     },
     shipping_amount: {
       description: 'enter your description',
