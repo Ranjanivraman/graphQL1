@@ -21,7 +21,7 @@ const token = {
   secret: 'dfe525ba3a8d2f57742b284d577ad493',
 };
 
-export function mgFetch(url) {
+export function mgFetchJSON(url) {
   const requestData = {
     url: url,
     method: 'GET',
@@ -56,4 +56,14 @@ export function arrayByStrippingKeys(obj) {
 export function objectByStrippingKey(obj) {
   const result = Object.values(obj);
   return result.length === 1 ? result[0] : {};
+}
+
+export function mgFetchMany(url) {
+  return mgFetchJSON(url)
+  .then(res => arrayByStrippingKeys(res))
+}
+
+export function mgFetchOne(url) {
+  return mgFetchJSON(url)
+  .then(res => objectByStrippingKey(res))
 }
