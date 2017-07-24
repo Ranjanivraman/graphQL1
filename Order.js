@@ -389,6 +389,16 @@ export const Order = new GraphQLObjectType({
       description: 'enter your description',
       type: new GraphQLList(OrderItemType),
     },
+    /*
+    order_items contains multiple items for each item ordered!  It has something to do with 'simple' and 'configurable' products.  It deserves careful consideration as to what is actually the best way to represent this to the graphql client.  As a partial hack, it turns out everything I need is in the parent order item, so, I am making this parent_order_items to filter out and discard the child items.  This assumes there is exactly one parent per item ordered.
+      */
+    parent_order_items: {
+      description: 'order_items where parent_item_id == null',
+      type: new GraphQLList(OrderItemType),
+      resolve: (obj, args, ctx) => {
+        return obj.order_items.filter(elem => elem.parent_item_id == null);
+      },
+    },
     payment_method: {
       description: 'enter your description',
       type: GraphQLString,
