@@ -1,5 +1,6 @@
 
 import {
+  GraphQLEnumType,
   GraphQLFloat,
   GraphQLInt,
   GraphQLString,
@@ -231,6 +232,38 @@ const OrderItemType = new GraphQLObjectType({
   },
 });
 
+var OrderStatusEnum = new GraphQLEnumType({
+  name: 'OrderStatus',
+  description: 'Where is my order?',
+  values: {
+// i lifted these from the spreadsheet: https://missguided.atlassian.net/wiki/display/PROJ/SOMS+Module?preview=%2F130001937%2F131502684%2FOrder_Status_Sequence_v4.xlsx
+    holded: { value: "holded", },
+    pending: { value: "pending", },
+    fraud: { value: "fraud", },
+    klarna_reserved: { value: "klarna_reserved", },
+    payment_review: { value: "payment_review", },
+    pending_payment: { value: "pending_payment", },
+    printed: { value: "printed", },
+    ready_to_manifest: { value: "ready_to_manifest", },
+    klarna_processed: { value: "klarna_processed", },
+    processing: { value: "processing", },
+    to_collect: { value: "to_collect", },
+    collected: { value: "collected", },
+    dispatched: { value: "dispatched", },
+    duplicate_order: { value: "duplicate_order", },
+    complete: { value: "complete", },
+    part_ship: { value: "part_ship", },
+    ready_to_dispatch: { value: "ready_to_dispatch", },
+    out_for_delivery: { value: "out_for_delivery", },
+    delivered: { value: "delivered", },
+    failed_delivery: { value: "failed_delivery", },
+    closed_by_system: { value: "closed_by_system", },
+    canceled: { value: "canceled", },
+    return_received: { value: "return_received", },
+    offline_refund: { value: "offline_refund", },
+    closed: { value: "closed", },
+  }
+});
 
 export const Order = new GraphQLObjectType({
   name: 'Order',
@@ -457,7 +490,7 @@ export const Order = new GraphQLObjectType({
     },
     status: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: OrderStatusEnum,
     },
     store_currency_code: {
       description: 'enter your description',
