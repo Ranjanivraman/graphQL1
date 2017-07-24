@@ -1,6 +1,7 @@
 
 import {
   GraphQLFloat,
+  GraphQLInt,
   GraphQLString,
   GraphQLList,
   GraphQLObjectType,
@@ -126,35 +127,35 @@ const OrderItemType = new GraphQLObjectType({
   fields: {
     base_discount_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_original_price: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_price: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_price_incl_tax: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_row_total: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_row_total_incl_tax: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_tax_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     discount_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     item_id: {
       description: 'enter your description',
@@ -166,7 +167,7 @@ const OrderItemType = new GraphQLObjectType({
     },
     original_price: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     parent_item_id: {
       description: 'enter your description',
@@ -189,31 +190,31 @@ const OrderItemType = new GraphQLObjectType({
     },
     qty_canceled: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLInt,
     },
     qty_invoiced: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLInt,
     },
     qty_ordered: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLInt,
     },
     qty_refunded: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLInt,
     },
     qty_shipped: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLInt,
     },
     row_total: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     row_total_incl_tax: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     sku: {
       description: 'enter your description',
@@ -221,7 +222,7 @@ const OrderItemType = new GraphQLObjectType({
     },
     tax_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     tax_percent: {
       description: 'enter your description',
@@ -240,59 +241,59 @@ export const Order = new GraphQLObjectType({
     },
     base_customer_balance_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_discount_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_gift_cards_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_grand_total: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_reward_currency_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_shipping_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_shipping_discount_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_shipping_tax_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_subtotal: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_subtotal_incl_tax: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_tax_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_total_due: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_total_paid: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     base_total_refunded: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     billing_address: {
       description: 'Billing address',
@@ -311,7 +312,7 @@ export const Order = new GraphQLObjectType({
     },
     customer_balance_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     customer_dob: {
       description: 'enter your description',
@@ -323,7 +324,7 @@ export const Order = new GraphQLObjectType({
     },
     discount_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     discount_description: {
       description: 'enter your description',
@@ -339,7 +340,7 @@ export const Order = new GraphQLObjectType({
     },
     gift_cards_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     gift_message_body: {
       description: 'enter your description',
@@ -355,7 +356,7 @@ export const Order = new GraphQLObjectType({
     },
     grand_total: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     increment_id: {
       description: 'enter your description',
@@ -409,7 +410,7 @@ export const Order = new GraphQLObjectType({
     },
     reward_currency_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     reward_points_balance: {
       description: 'enter your description',
@@ -424,7 +425,7 @@ export const Order = new GraphQLObjectType({
     },
     shipping_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     shipping_description: {
       description: 'enter your description',
@@ -432,11 +433,11 @@ export const Order = new GraphQLObjectType({
     },
     shipping_discount_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     shipping_incl_tax: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     shipping_instructions: {
       description: 'enter your description',
@@ -452,7 +453,7 @@ export const Order = new GraphQLObjectType({
     },
     shipping_tax_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     status: {
       description: 'enter your description',
@@ -472,15 +473,15 @@ export const Order = new GraphQLObjectType({
     },
     subtotal: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     subtotal_incl_tax: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     tax_amount: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: GraphQLFloat,
     },
     tax_name: {
       description: 'enter your description',
