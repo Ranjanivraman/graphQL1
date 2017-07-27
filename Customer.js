@@ -1,6 +1,7 @@
 
 import {
   GraphQLList,
+  GraphQLNonNull,
   GraphQLString,
   GraphQLObjectType,
 } from 'graphql';
@@ -31,7 +32,7 @@ export const Customer = new GraphQLObjectType({
     },
     entity_id: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
     },
     firstname: {
       description: 'enter your description',
@@ -84,8 +85,9 @@ export const CustomerLoginMutation = {
   },
   resolve: (obj, {email, password}) => {
     if (password != "shhhh") {
-      throw("you must be joking")
+      throw("invalid login")
     }
+    // naturally, the error handling here needs beefing up.  for example, if the username is not recognised by the server, it doesn't send back an error, it just sends back: [] as the response.  So, somewhere in here, it should
     return CustomerFetcher.getCustomerByEmail(email);
   },
 };
