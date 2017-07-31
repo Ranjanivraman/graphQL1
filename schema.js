@@ -9,7 +9,7 @@ import {
   CustomerByIdQuery,
   CustomerByEmailQuery,
   CustomersQuery,
-  CustomerLoginMutation,
+  CustomerConnectMutation,
 } from './Customer';
 
 const query = new GraphQLObjectType({
@@ -27,7 +27,7 @@ const mutation = new GraphQLObjectType({
   description: 'global mutation object',
   name: 'Mutation',
   fields: {
-    login: CustomerLoginMutation,
+    connect: CustomerConnectMutation,
   },
 });
 

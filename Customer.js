@@ -73,7 +73,7 @@ export const CustomerByEmailQuery = {
   },
 };
 
-export const CustomerLoginMutation = {
+export const CustomerConnectMutation = {
   type: Customer,
   args: {
     email: {
