@@ -1,6 +1,8 @@
 import fetch from 'node-fetch';
 const OAuth = require('oauth-1.0a');
 const crypto = require('crypto');
+var winston = require('winston');
+winston.level = 'debug'
 
 
 function hashFunctionSHA1(baseString, key) {
@@ -34,6 +36,8 @@ export function mgFetchJSON(url) {
     oauth.toHeader(oauth.authorize(requestData, token))
   );
 
+  winston.debug(new Date(), `fetch from ${url}`)
+
   let result = fetch(url, {
     headers: headers,
   })
@@ -41,7 +45,6 @@ export function mgFetchJSON(url) {
     /*
      if there were a .all or .always on Promise, then .then should be that however, as I can't find anything like that, I've used .then which means we won't get a log on a failure...If that is important, then result could be a function which logs & then returns the fetch
      */
-    console.log(`${new Date()}, fetch from ${url}`)
     return res
   })
   .then(res => res.json())

@@ -28,7 +28,7 @@ export const Customer = new GraphQLObjectType({
     },
     email: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
     },
     entity_id: {
       description: 'enter your description',
@@ -65,7 +65,7 @@ export const CustomerByEmailQuery = {
   type: Customer,
   args: {
     email: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
     },
   },
   resolve: (obj, {email}) => {
@@ -77,10 +77,10 @@ export const CustomerLoginMutation = {
   type: Customer,
   args: {
     email: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
     },
     password: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
     },
   },
   resolve: (obj, {email, password}) => {
