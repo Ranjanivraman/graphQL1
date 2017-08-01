@@ -6,10 +6,19 @@ import {
   GraphQLObjectType,
 } from 'graphql';
 import { CustomerFetcher } from './CustomerFetcher';
+import { CustomerAddressFetcher } from './CustomerAddressFetcher';
+import { CustomerAddress } from './CustomerAddress';
 
 export const Customer = new GraphQLObjectType({
   name: 'Customer',
   fields: {
+    addresses: {
+      description: 'array of addresses',
+      type: CustomerAddress,
+      resolve: (obj, args, ctx) => {
+        return CustomerAddressFetcher.getCustomerAddressesById(ctx.customerId);
+      },
+    },
     created_at: {
       description: 'enter your description',
       type: GraphQLString,

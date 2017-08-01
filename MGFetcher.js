@@ -41,12 +41,6 @@ export function mgFetchJSON(url) {
   let result = fetch(url, {
     headers: headers,
   })
-  .then(res => {
-    /*
-     if there were a .all or .always on Promise, then .then should be that however, as I can't find anything like that, I've used .then which means we won't get a log on a failure...If that is important, then result could be a function which logs & then returns the fetch
-     */
-    return res
-  })
   .then(res => res.json())
 
   return result
