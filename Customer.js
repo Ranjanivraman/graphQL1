@@ -63,7 +63,7 @@ export const Customer = new GraphQLObjectType({
 
 });
 
-export const CustomerByIdQuery = {
+export const ConnectedCustomerQuery = {
   type: Customer,
   resolve: (obj, args, ctx) => {
     return CustomerFetcher.getCustomerById(ctx.customerId);
