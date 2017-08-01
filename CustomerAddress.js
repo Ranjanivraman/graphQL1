@@ -9,7 +9,10 @@ import {
 } from 'graphql';
 import { CustomerAddressFetcher } from './CustomerAddressFetcher';
 
-export const CustomerAddress = new GraphQLObjectType({
+/*
+NB: see the note in Order.js about OrderAddressType and its relationship to this address.
+*/
+export const CustomerAddressType = new GraphQLObjectType({
   name: 'CustomerAddress',
   fields: {
     care_of: {
@@ -89,7 +92,7 @@ export const CustomerAddress = new GraphQLObjectType({
 });
 
 export const CustomerAddressByIdQuery = {
-  type: CustomerAddress,
+  type: CustomerAddressType,
   resolve: (obj, args, ctx) => {
     return CustomerAddressFetcher.getCustomerAddressById(ctx.customerId);
   },

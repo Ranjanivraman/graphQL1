@@ -7,14 +7,14 @@ import {
 } from 'graphql';
 import { CustomerFetcher } from './CustomerFetcher';
 import { CustomerAddressFetcher } from './CustomerAddressFetcher';
-import { CustomerAddress } from './CustomerAddress';
+import { CustomerAddressType } from './CustomerAddress';
 
 export const Customer = new GraphQLObjectType({
   name: 'Customer',
   fields: {
     addresses: {
       description: 'array of addresses',
-      type: CustomerAddress,
+      type: new GraphQLList(CustomerAddressType),
       resolve: (obj, args, ctx) => {
         return CustomerAddressFetcher.getCustomerAddressesById(ctx.customerId);
       },

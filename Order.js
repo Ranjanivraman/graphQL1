@@ -13,9 +13,11 @@ import { Product } from './Product';
 import { ProductFetcher } from './ProductFetcher';
 import { ISO8601Date } from './ISO8601Date';
 
-
-const AddressType = new GraphQLObjectType({
-  name: 'Address',
+/*
+N.B. there is another address defined in CustomerAddress.  I have no idea if they are the same or if one is a subset of the other...etc.  If there is some relationship between the two, that should be reflected in the code rather than doing as I have done and making them two completely different, unrelated types.
+*/
+const OrderAddressType = new GraphQLObjectType({
+  name: 'OrderAddress',
   fields: {
     address_type: {
       description: 'enter your description',
@@ -330,7 +332,7 @@ export const Order = new GraphQLObjectType({
     },
     billing_address: {
       description: 'Billing address',
-      type: AddressType,
+      type: OrderAddressType,
       resolve: (obj, args, ctx) => {
         return obj.addresses.find(elem => elem.address_type == 'billing');
       },
@@ -451,7 +453,7 @@ export const Order = new GraphQLObjectType({
     },
     shipping_address: {
       description: 'Shipping address',
-      type: AddressType,
+      type: OrderAddressType,
       resolve: (obj, args, ctx) => {
         return obj.addresses.find(elem => elem.address_type == 'shipping');
       },
