@@ -8,6 +8,7 @@ import {
 import { CustomerFetcher } from './CustomerFetcher';
 import { CustomerAddressFetcher } from './CustomerAddressFetcher';
 import { CustomerAddressType } from './CustomerAddress';
+import { ISO8601Date } from './ISO8601Date';
 
 export const Customer = new GraphQLObjectType({
   name: 'Customer',
@@ -21,7 +22,7 @@ export const Customer = new GraphQLObjectType({
     },
     created_at: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: ISO8601Date,
     },
     created_in: {
       description: 'enter your description',
@@ -33,7 +34,7 @@ export const Customer = new GraphQLObjectType({
     },
     dob: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: ISO8601Date,
     },
     email: {
       description: 'enter your description',
