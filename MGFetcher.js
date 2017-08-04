@@ -41,6 +41,9 @@ export function mgFetchJSON(url) {
   let result = fetch(url, {
     headers: headers,
   })
+  .catch(function(err) {
+        console.log(err);
+    })
   .then(res => res.json())
 
   return result

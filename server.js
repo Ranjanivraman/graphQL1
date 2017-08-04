@@ -41,7 +41,7 @@ graphqlExpress(request => ({
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 app.use((req, res, next) => {
-  winston.debug("---------- end GraphQL request", new Date())
+  winston.debug("---------- end GraphQL request", new Date(), "\n\n")
   next()
 })
 
