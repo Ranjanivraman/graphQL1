@@ -458,7 +458,7 @@ export const OrderType = new GraphQLObjectType({
       args: {
         item_type: {
           type: OrderItemTypeEnum,
-          defaultValue: 'ALL',
+          defaultValue: 'all',
         },
       },
       resolve: (obj, {item_type}) => {
