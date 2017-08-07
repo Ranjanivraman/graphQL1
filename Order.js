@@ -267,9 +267,34 @@ var OrderStatusEnum = new GraphQLEnumType({
   }
 });
 
+export const OrderAddressTypeEnum = new GraphQLEnumType({
+  name: 'OrderAddressTypeEnum',
+  values: {
+    SHIPPING: { value: 'shipping' },
+    BILLING: { value: 'billing' },
+  },
+})
+
 export const OrderType = new GraphQLObjectType({
   name: 'Order',
   fields: {
+    address: {
+      description: 'Address corresponding to addresss_type arg',
+      type: OrderAddressType,
+      args: {
+        address_type: {
+          type: OrderAddressTypeEnum,
+          defaultValue: 'shipping',
+        },
+      },
+      resolve: (obj, {address_type}) => {
+        return obj.addresses.find(elem => elem.address_type == address_type);
+      },
+    },
+    addresses: {
+      description: 'All addresses for the order',
+      type: new GraphQLList(OrderAddressType),
+    },
     base_currency_code: {
       description: 'enter your description',
       type: GraphQLString,
@@ -329,13 +354,6 @@ export const OrderType = new GraphQLObjectType({
     base_total_refunded: {
       description: 'enter your description',
       type: GraphQLFloat,
-    },
-    billing_address: {
-      description: 'Billing address',
-      type: OrderAddressType,
-      resolve: (obj, args, ctx) => {
-        return obj.addresses.find(elem => elem.address_type == 'billing');
-      },
     },
     coupon_code: {
       description: 'enter your description',
@@ -450,13 +468,6 @@ export const OrderType = new GraphQLObjectType({
     reward_points_balance: {
       description: 'enter your description',
       type: GraphQLString,
-    },
-    shipping_address: {
-      description: 'Shipping address',
-      type: OrderAddressType,
-      resolve: (obj, args, ctx) => {
-        return obj.addresses.find(elem => elem.address_type == 'shipping');
-      },
     },
     shipping_amount: {
       description: 'enter your description',
