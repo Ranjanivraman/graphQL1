@@ -11,7 +11,7 @@ import {
 } from 'graphql';
 import { ProductFetcher } from './ProductFetcher';
 
-export const Product = new GraphQLObjectType({
+export const ProductType = new GraphQLObjectType({
   name: 'Product',
   fields: () => ({
     attribute_set_id: {
@@ -305,7 +305,7 @@ export const Product = new GraphQLObjectType({
 })
 
 export const ProductBySKUQuery = {
-  type: Product,
+  type: ProductType,
   args: {
     sku: {
       type: GraphQLString,

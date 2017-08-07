@@ -9,7 +9,7 @@ import {
 } from 'graphql';
 
 import { OrderFetcher } from './OrderFetcher';
-import { Product } from './Product';
+import { ProductType } from './Product';
 import { ProductFetcher } from './ProductFetcher';
 import { ISO8601Date } from './ISO8601Date';
 
@@ -185,7 +185,7 @@ const OrderItemType = new GraphQLObjectType({
       type: GraphQLFloat,
     },
     product: {
-      type: Product,
+      type: ProductType,
       resolve: (obj, args, ctx) => {
         const sku = obj.sku
         return ProductFetcher.getProductBySKU(sku)
@@ -267,7 +267,7 @@ var OrderStatusEnum = new GraphQLEnumType({
   }
 });
 
-export const Order = new GraphQLObjectType({
+export const OrderType = new GraphQLObjectType({
   name: 'Order',
   fields: {
     base_currency_code: {
@@ -542,7 +542,7 @@ export const Order = new GraphQLObjectType({
 });
 
 export const OrdersQuery = {
-  type: new GraphQLList(Order),
+  type: new GraphQLList(OrderType),
   resolve: (obj, args, ctx) => {
     return OrderFetcher.getOrders(ctx.customerId);
   },

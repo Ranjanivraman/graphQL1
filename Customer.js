@@ -10,7 +10,7 @@ import { CustomerAddressFetcher } from './CustomerAddressFetcher';
 import { CustomerAddressType } from './CustomerAddress';
 import { ISO8601Date } from './ISO8601Date';
 
-export const Customer = new GraphQLObjectType({
+export const CustomerType = new GraphQLObjectType({
   name: 'Customer',
   fields: {
     addresses: {
@@ -65,14 +65,14 @@ export const Customer = new GraphQLObjectType({
 });
 
 export const ConnectedCustomerQuery = {
-  type: Customer,
+  type: CustomerType,
   resolve: (obj, args, ctx) => {
     return CustomerFetcher.getCustomerById(ctx.customerId);
   },
 };
 
 export const CustomerByEmailQuery = {
-  type: Customer,
+  type: CustomerType,
   args: {
     email: {
       type: new GraphQLNonNull(GraphQLString),
@@ -84,7 +84,7 @@ export const CustomerByEmailQuery = {
 };
 
 export const CustomerConnectMutation = {
-  type: Customer,
+  type: CustomerType,
   args: {
     email: {
       type: new GraphQLNonNull(GraphQLString),
