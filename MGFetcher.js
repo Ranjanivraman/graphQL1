@@ -23,31 +23,69 @@ const token = {
   secret: 'dfe525ba3a8d2f57742b284d577ad493',
 };
 
+function getHeaders(requestData) {
+  const headers = Object.assign({},
+    {
+      'content-type': 'application/json',
+      'Accept': '*/*',
+    },
+    oauth.toHeader(oauth.authorize(requestData, token))
+  );
+  return headers
+}
+
 export function mgFetchJSON(url) {
   const requestData = {
     url: url,
     method: 'GET',
   };
 
-  const headers = Object.assign({},
-    {
-      'content-type': 'application/json',
-    },
-    oauth.toHeader(oauth.authorize(requestData, token))
-  );
+  winston.debug(new Date(), `fetch from ${requestData.url}`)
 
-  winston.debug(new Date(), `fetch from ${url}`)
-
-  let result = fetch(url, {
-    headers: headers,
+  let result = fetch(requestData.url, {
+    headers: getHeaders(requestData),
   })
   .catch(function(err) {
-        console.log(err);
-    })
+    console.log(err);
+  })
   .then(res => res.json())
 
   return result
 }
+
+export function mgPutJSON(url, body) {
+
+const requestData = {
+  url: url,
+  method: 'PUT',
+};
+
+winston.debug(new Date(), requestData.url, body)
+
+let result = fetch(requestData.url, {
+  method: requestData.method,
+  headers: getHeaders(requestData),
+  body: body,
+})
+.catch(function(err) {
+  console.log(err);
+})
+// customer update doesn't send back a body...it just sends status 200 for ok and 400 for not ok
+
+//   console.log('*****RESULT');
+//   console.log(res);
+//   console.log('*****RESULT');
+//   return res
+// })
+// .catch(function(err) {
+//   console.log('*****ERROR');
+//   console.log(err);
+//   console.log('*****ERROR');
+// })
+
+return result
+}
+
 
 export function arrayByStrippingKeys(obj) {
   return Object.values(obj);

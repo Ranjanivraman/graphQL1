@@ -1,9 +1,11 @@
 
 import {
   mgFetchOne,
+  mgPutJSON,
 } from './MGFetcher';
 
 const util = require('util')
+const winston = require('winston');
 
 export const CustomerFetcher = {
   getCustomerById(customerId) {
@@ -22,8 +24,14 @@ export const CustomerFetcher = {
         throw("invalid login")
       }
       return res
-    }
-  )
-},
+    })
+  },
+
+  updateCustomerById(customerId, body) {
+    const url = `https://api-test2.mgnonprod.co.uk/api/rest/customers/${customerId}`
+       // TODO: turn this into a function in CustomerFetcher
+        winston.debug("customer update: ", body)
+        return mgPutJSON(url, body)
+  }
 
 };

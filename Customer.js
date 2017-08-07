@@ -113,10 +113,12 @@ export const CustomerUpdateMutation = {
     /*
     Don't know if this is good style, but it just so happens that the customerInput is exactly what I want to send to magento...so i'm going to do just that.
     */
-    const body = JSON.stringify(customerInput)
-    winston.debug("customer update: ", body)
-    // TODO: like, the actual, you know, update
-    return CustomerFetcher.getCustomerById(ctx.customerId);
+
+    /*
+    FIXME: unfortunately that ignores the fact that the dob is in 8601 format and magento wants it in MAGENTO format!
+    */
+    return CustomerFetcher.updateCustomerById(ctx.customerId, JSON.stringify(customerInput))
+    .then(res => CustomerFetcher.getCustomerById(ctx.customerId))
   },
 };
 
