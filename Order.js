@@ -3,6 +3,7 @@ import {
   GraphQLEnumType,
   GraphQLFloat,
   GraphQLInt,
+  GraphQLNonNull,
   GraphQLString,
   GraphQLList,
   GraphQLObjectType,
@@ -275,6 +276,15 @@ export const OrderAddressTypeEnum = new GraphQLEnumType({
   },
 })
 
+export const OrderItemTypeEnum = new GraphQLEnumType({
+  name: 'OrderItemTypeEnum',
+  values: {
+    ALL: { value: 'all'},
+    PARENT: { value: 'parent' },
+    CHILD: { value: 'child' },
+  }
+})
+
 export const OrderType = new GraphQLObjectType({
   name: 'Order',
   fields: {
@@ -439,18 +449,32 @@ export const OrderType = new GraphQLObjectType({
       description: 'enter your description',
       type: GraphQLString,
     },
-    order_items: {
-      description: 'enter your description',
-      type: new GraphQLList(OrderItemType),
-    },
     /*
-    order_items contains multiple items for each item ordered!  It has something to do with 'simple' and 'configurable' products.  It deserves careful consideration as to what is actually the best way to represent this to the graphql client.  As a partial hack, it turns out everything I need is in the parent order item, so, I am making this parent_order_items to filter out and discard the child items.  This assumes there is exactly one parent per item ordered.
+    order_items contains multiple items for each item ordered!  It has something to do with 'simple' and 'configurable' products.  It deserves careful consideration as to what is actually the best way to represent this to the graphql client.  FTM, I've added a parameter so the client can ask for all or just parent or just child.
       */
-    parent_order_items: {
-      description: 'order_items where parent_item_id == null',
+    order_items: {
+      description: 'Items on the order; use item_type to choose PARENT, CHILD or ALL',
       type: new GraphQLList(OrderItemType),
-      resolve: (obj, args, ctx) => {
-        return obj.order_items.filter(elem => elem.parent_item_id == null);
+      args: {
+        item_type: {
+          type: OrderItemTypeEnum,
+          defaultValue: 'ALL',
+        },
+      },
+      resolve: (obj, {item_type}) => {
+        return obj.order_items.filter(elem => {
+          // TODO: SHURELY there must be a way to use the nice symbolic names (ALL, PARENT, CHILD) defined above??? I can do it in Swift; nyah, nyah, nyah!
+          if (item_type == 'all') {
+            return true
+          }
+          if (item_type == 'parent' && elem.parent_item_id == null) {
+            return true
+          }
+          if (item_type == 'child' && elem.parent_item_id != null) {
+            return true
+          }
+          return false
+        });
       },
     },
     payment_method: {
