@@ -10,6 +10,7 @@ import {
   CustomerByEmailQuery,
   CustomersQuery,
   CustomerConnectMutation,
+  CustomerUpdateMutation,
 } from './Customer';
 
 const query = new GraphQLObjectType({
@@ -31,6 +32,7 @@ const mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
     connect: CustomerConnectMutation,
+    customerUpdate: CustomerUpdateMutation,
   },
 });
 

@@ -1,5 +1,5 @@
-
 import {
+  GraphQLInputObjectType,
   GraphQLList,
   GraphQLNonNull,
   GraphQLString,
@@ -9,6 +9,25 @@ import { CustomerFetcher } from './CustomerFetcher';
 import { CustomerAddressFetcher } from './CustomerAddressFetcher';
 import { CustomerAddressType } from './CustomerAddress';
 import { ISO8601Date } from './ISO8601Date';
+var winston = require('winston');
+
+export const CustomerInput = new GraphQLInputObjectType({
+  name: 'CustomerInput',
+  fields: {
+    firstname: {
+      type: GraphQLString,
+    },
+    lastname: {
+      type: GraphQLString,
+    },
+    dob: {
+      type: ISO8601Date,
+    },
+    email: {
+      type: GraphQLString,
+    },
+  },
+});
 
 export const CustomerType = new GraphQLObjectType({
   name: 'Customer',
@@ -80,6 +99,24 @@ export const CustomerByEmailQuery = {
   },
   resolve: (obj, {email}) => {
     return CustomerFetcher.getCustomerByEmail(email);
+  },
+};
+
+export const CustomerUpdateMutation = {
+  type: CustomerType,
+  args: {
+    customerInput: {
+      type: new GraphQLNonNull(CustomerInput),
+    }
+  },
+  resolve: (obj, {customerInput}, ctx) => {
+    /*
+    Don't know if this is good style, but it just so happens that the customerInput is exactly what I want to send to magento...so i'm going to do just that.
+    */
+    const body = JSON.stringify(customerInput)
+    winston.debug("customer update: ", body)
+    // TODO: like, the actual, you know, update
+    return CustomerFetcher.getCustomerById(ctx.customerId);
   },
 };
 
