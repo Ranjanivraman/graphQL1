@@ -10,7 +10,7 @@ export var ISO8601Date = new GraphQLScalarType({
   name: 'ISO8601Date',
 
   /*
-  NB: here and elsewhere when dealing with dates I have sprinkled utc() around fairly liberally.  This is not correct (testing with customer dob having a time of midnight proves).  As this is a prototype of GraphQL, I'm not going to investigate and set it right.
+  NB: here and elsewhere when dealing with dates I have sprinkled utc() around fairly liberally.  This is not correct (as testing with customer dob having a time of midnight will prove).  As this is a prototype of GraphQL, I'm not going to investigate and set it right.
 
   So, this is a warning to anyone who might mistake this masterly Javascript masterpiece for fully working, tested, ready-to-deploy code.  It is not.
   */
