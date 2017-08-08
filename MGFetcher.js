@@ -79,7 +79,7 @@ const requestData = {
 };
 const body = JSON.stringify(jsonableObject)
 
-winston.debug(new Date(), requestData.url, body)
+winston.debug(new Date(), `put to ${requestData.url}, body: `, body)
 
 const result = fetch(requestData.url, {
   method: requestData.method,
@@ -88,7 +88,7 @@ const result = fetch(requestData.url, {
 })
 .then(res => checkHTTPStatus(res))
 .catch(err => logError("mgPutJSON, err: ", err))
-.then(res => logResult("mgPutJSON, res: ", res))
+//.then(res => logResult("mgPutJSON, res: ", res))
 
 return result
 }

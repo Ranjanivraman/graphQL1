@@ -9,6 +9,8 @@ import { CustomerFetcher } from './CustomerFetcher';
 import { CustomerAddressFetcher } from './CustomerAddressFetcher';
 import { CustomerAddressType } from './CustomerAddress';
 import { ISO8601Date } from './ISO8601Date';
+const moment = require('moment');
+
 var winston = require('winston');
 
 export const CustomerInput = new GraphQLInputObjectType({
@@ -110,14 +112,21 @@ export const CustomerUpdateMutation = {
     }
   },
   resolve: (obj, {customerInput}, ctx) => {
-    /*
-    Don't know if this is good style, but it just so happens that the customerInput is exactly what I want to send to magento...so i'm going to do just that.
-    */
 
-    /*
-    FIXME: unfortunately that ignores the fact that the dob is in 8601 format and magento wants it in MAGENTO format!
-    */
-    return CustomerFetcher.updateCustomerById(ctx.customerId, customerInput)
+    var cleaned = {}
+    Object.keys(customerInput).forEach(key => {
+      const value = customerInput[key]
+      switch (key) {
+        case "dob":
+        // note how the input dob is a different format from the output dob!  This is what makes APIs such a fun adventure for client devs
+          cleaned[key] = value.format("DD-MM-YYYY")
+          break;
+        default:
+          cleaned[key] = value
+      }
+    })
+
+    return CustomerFetcher.updateCustomerById(ctx.customerId, cleaned)
     .then(res => CustomerFetcher.getCustomerById(ctx.customerId))
   },
 };
