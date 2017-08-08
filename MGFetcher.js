@@ -61,11 +61,11 @@ export function mgFetchJSON(url) {
 
   winston.debug(new Date(), `fetch from ${requestData.url}`)
 
-  let result = fetch(requestData.url, {
+  const result = fetch(requestData.url, {
     headers: getHeaders(requestData),
   })
-  .catch(err => logError("mgFetchJSON, err: ", err))
   .then(res => checkHTTPStatus(res))
+  .catch(err => logError("mgFetchJSON, err: ", err))
   .then(res => res.json())
 
   return result
@@ -81,7 +81,7 @@ const body = JSON.stringify(jsonableObject)
 
 winston.debug(new Date(), requestData.url, body)
 
-let result = fetch(requestData.url, {
+const result = fetch(requestData.url, {
   method: requestData.method,
   headers: getHeaders(requestData),
   body: body,

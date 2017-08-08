@@ -27,10 +27,10 @@ export const CustomerFetcher = {
     })
   },
 
-  updateCustomerById(customerId, body) {
+  updateCustomerById(customerId, jsonableObject) {
     const url = `https://api-test2.mgnonprod.co.uk/api/rest/customers/${customerId}`
 
-    return mgPutJSON(url, body)
+    return mgPutJSON(url, jsonableObject)
   },
 
 };
