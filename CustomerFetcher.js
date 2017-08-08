@@ -29,9 +29,8 @@ export const CustomerFetcher = {
 
   updateCustomerById(customerId, body) {
     const url = `https://api-test2.mgnonprod.co.uk/api/rest/customers/${customerId}`
-       // TODO: turn this into a function in CustomerFetcher
-        winston.debug("customer update: ", body)
-        return mgPutJSON(url, body)
-  }
+
+    return mgPutJSON(url, body)
+  },
 
 };

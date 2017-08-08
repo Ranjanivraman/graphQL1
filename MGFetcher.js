@@ -34,6 +34,25 @@ function getHeaders(requestData) {
   return headers
 }
 
+function checkHTTPStatus(res) {
+  // FTM, only considering status 200 good...that could be overly restrictive
+  if (res.status != 200) {
+    // what do i throw????
+    throw `BAD STATUS: ${res.status}`
+  }
+  return res
+}
+
+function logError(prefix, err) {
+    winston.debug(prefix, err)
+    throw err
+}
+
+function logResult(prefix, res) {
+  winston.debug(prefix, res)
+  return res
+}
+
 export function mgFetchJSON(url) {
   const requestData = {
     url: url,
@@ -45,20 +64,20 @@ export function mgFetchJSON(url) {
   let result = fetch(requestData.url, {
     headers: getHeaders(requestData),
   })
-  .catch(function(err) {
-    console.log(err);
-  })
+  .catch(err => logError("mgFetchJSON, err: ", err))
+  .then(res => checkHTTPStatus(res))
   .then(res => res.json())
 
   return result
 }
 
-export function mgPutJSON(url, body) {
+export function mgPutJSON(url, jsonableObject) {
 
 const requestData = {
   url: url,
   method: 'PUT',
 };
+const body = JSON.stringify(jsonableObject)
 
 winston.debug(new Date(), requestData.url, body)
 
@@ -67,21 +86,9 @@ let result = fetch(requestData.url, {
   headers: getHeaders(requestData),
   body: body,
 })
-.catch(function(err) {
-  console.log(err);
-})
-// customer update doesn't send back a body...it just sends status 200 for ok and 400 for not ok
-
-//   console.log('*****RESULT');
-//   console.log(res);
-//   console.log('*****RESULT');
-//   return res
-// })
-// .catch(function(err) {
-//   console.log('*****ERROR');
-//   console.log(err);
-//   console.log('*****ERROR');
-// })
+.then(res => checkHTTPStatus(res))
+.catch(err => logError("mgPutJSON, err: ", err))
+.then(res => logResult("mgPutJSON, res: ", res))
 
 return result
 }

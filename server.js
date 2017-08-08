@@ -46,6 +46,4 @@ app.use((req, res, next) => {
 })
 
 
-app.listen(GRAPHQL_PORT, () => console.log(
-  `GraphiQL is now running on http://localhost:${GRAPHQL_PORT}/graphiql`
-));
+app.listen(GRAPHQL_PORT, () => winston.debug(`GraphiQL is now running on http://localhost:${GRAPHQL_PORT}/graphiql`));

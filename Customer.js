@@ -117,7 +117,7 @@ export const CustomerUpdateMutation = {
     /*
     FIXME: unfortunately that ignores the fact that the dob is in 8601 format and magento wants it in MAGENTO format!
     */
-    return CustomerFetcher.updateCustomerById(ctx.customerId, JSON.stringify(customerInput))
+    return CustomerFetcher.updateCustomerById(ctx.customerId, customerInput)
     .then(res => CustomerFetcher.getCustomerById(ctx.customerId))
   },
 };
