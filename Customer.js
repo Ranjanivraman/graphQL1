@@ -38,7 +38,7 @@ export const CustomerType = new GraphQLObjectType({
       description: 'array of addresses',
       type: new GraphQLList(CustomerAddressType),
       resolve: (obj, args, ctx) => {
-        return CustomerAddressFetcher.getCustomerAddressesById(obj.entity_id);
+        return CustomerAddressFetcher.getCustomerAddressesByCustomerId(obj.entity_id);
       },
     },
     created_at: {

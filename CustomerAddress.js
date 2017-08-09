@@ -1,6 +1,7 @@
 import {
   GraphQLBoolean,
   GraphQLString,
+  GraphQLInputObjectType,
   GraphQLInt,
   GraphQLFloat,
   GraphQLList,
@@ -8,6 +9,31 @@ import {
   GraphQLNonNull
 } from 'graphql';
 import { CustomerAddressFetcher } from './CustomerAddressFetcher';
+
+export const CustomerAddressInput = new GraphQLInputObjectType({
+  name: 'CustomerAddressInput',
+  fields: {
+    firstname: {
+      type: GraphQLString,
+    },
+    lastname: {
+      type: GraphQLString,
+    },
+    street: {
+      type: new GraphQLList(GraphQLString),
+    },
+    city: {
+      type: GraphQLString,
+    },
+    region: {
+      type: GraphQLString,
+    },
+    postcode: {
+      type: GraphQLString,
+    },
+  },
+});
+
 
 /*
 NB: see the note in Order.js about OrderAddressType and its relationship to this address.
@@ -91,9 +117,25 @@ export const CustomerAddressType = new GraphQLObjectType({
 
 });
 
-export const CustomerAddressByIdQuery = {
+export const CustomerAddressesByCustomerIdQuery = {
   type: CustomerAddressType,
   resolve: (obj, args, ctx) => {
-    return CustomerAddressFetcher.getCustomerAddressById(ctx.customerId);
+    return CustomerAddressFetcher.getCustomerAddressesByCustomerId(ctx.customerId);
+  },
+};
+
+export const CustomerAddressUpdateMutation = {
+  type: CustomerAddressType,
+  args: {
+    customerAddressInput: {
+      type: new GraphQLNonNull(CustomerAddressInput),
+    }
+  },
+  resolve: (obj, {customerAddressEntityId, customerAddressInput}, ctx) => {
+
+    const cleaned = {}
+
+    return CustomerAddressFetcher.updateCustomerAddressByAddressId(customerAddressEntityId, cleaned)
+    .then(res => CustomerAddressFetcher.getCustomerAddressByAddressId(ctx.customerId))
   },
 };

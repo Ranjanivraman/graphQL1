@@ -12,6 +12,9 @@ import {
   CustomerConnectMutation,
   CustomerUpdateMutation,
 } from './Customer';
+import {
+  CustomerAddressUpdateMutation,
+} from './CustomerAddress';
 
 const query = new GraphQLObjectType({
   description: 'global query object',
@@ -33,6 +36,7 @@ const mutation = new GraphQLObjectType({
   fields: {
     connect: CustomerConnectMutation,
     customerUpdate: CustomerUpdateMutation,
+    customerAddressUpdate: CustomerAddressUpdateMutation,
   },
 });
 
