@@ -9,6 +9,7 @@ import {
   GraphQLNonNull
 } from 'graphql';
 import { CustomerAddressFetcher } from './CustomerAddressFetcher';
+var winston = require('winston');
 
 export const CustomerAddressInput = new GraphQLInputObjectType({
   name: 'CustomerAddressInput',
@@ -30,6 +31,12 @@ export const CustomerAddressInput = new GraphQLInputObjectType({
     },
     postcode: {
       type: GraphQLString,
+    },
+    is_default_billing: {
+      type: GraphQLBoolean,
+    },
+    is_default_shipping: {
+      type: GraphQLBoolean,
     },
   },
 });
@@ -59,7 +66,7 @@ export const CustomerAddressType = new GraphQLObjectType({
     },
     entity_id: {
       description: 'enter your description',
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
     },
     fax: {
       description: 'enter your description',
@@ -127,15 +134,35 @@ export const CustomerAddressesByCustomerIdQuery = {
 export const CustomerAddressUpdateMutation = {
   type: CustomerAddressType,
   args: {
+    customerAddressEntityId: {
+      type: GraphQLString,
+    },
     customerAddressInput: {
       type: new GraphQLNonNull(CustomerAddressInput),
     }
   },
   resolve: (obj, {customerAddressEntityId, customerAddressInput}, ctx) => {
 
-    const cleaned = {}
+    var cleaned = {
+      "entity_id": customerAddressEntityId
+    }
+    Object.keys(customerAddressInput).forEach(key => {
+      const value = customerAddressInput[key]
+      switch (key) {
+        case "is_default_billing":
+        case "is_default_shipping":
+          cleaned[key] = value ? 1 : 0
+          break;
+        default:
+          cleaned[key] = value
+      }
+    })
 
-    return CustomerAddressFetcher.updateCustomerAddressByAddressId(customerAddressEntityId, cleaned)
-    .then(res => CustomerAddressFetcher.getCustomerAddressByAddressId(ctx.customerId))
+    // currently not actually modifying anything because the mean old magento gives me a 500 error
+        return CustomerAddressFetcher.updateCustomerAddressByAddressId(customerAddressEntityId, cleaned)
+        .then(res => CustomerAddressFetcher.getCustomerAddressByAddressId(customerAddressEntityId))
+
+    // return CustomerAddressFetcher.getCustomerAddressByAddressId(customerAddressEntityId)
+
   },
 };
