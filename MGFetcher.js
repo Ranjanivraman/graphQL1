@@ -37,10 +37,23 @@ function getHeaders(requestData) {
 function checkHTTPStatus(res) {
   // FTM, only considering status 200 good...that could be overly restrictive
   if (res.status != 200) {
-    // what do i throw????
-    throw `BAD STATUS: ${res.status}`
-  }
+    // what do i do now??? I think the errors are buried in the response somewhere...but damned if i can find them!  really it would be ideal if this threw an object containing the errors so they would make their way back to the client.  AND THEN DOCUMENT ALL THE THINGS so the client has a half a chance of handling it
+      throw `BAD STATUS: ${res.status}`
+    }
   return res
+}
+
+function checkErrors(obj) {
+  if (obj == null || obj == undefined) {
+    return {}
+  }
+
+  if (obj["messages"] != null) {
+    const catMessage = obj.messages.error.map(obj => obj.message).join('; ')
+    throw catMessage
+  }
+
+  return obj
 }
 
 function logError(prefix, err) {
@@ -64,33 +77,34 @@ export function mgFetchJSON(url) {
   const result = fetch(requestData.url, {
     headers: getHeaders(requestData),
   })
-  .then(res => checkHTTPStatus(res))
-  .catch(err => logError("mgFetchJSON, err: ", err))
   .then(res => res.json())
+  .then(json => checkErrors(json))
 
   return result
 }
 
+/*
+FIXME: The error handling in mgFetchJSON and mgPutJSON leaves much to be desired.  when there are errors in the response it does ok, but if there's just an error code, the message is 'unexpected end of JSON' which isn't really something the user can do anything about. One case where this happens is if the server returns an error (like 500), and the response.json() returns nothing (not even an empty object).  So its reporting an error (good), but it is a nonsensical low-level javascript type of error instead of the error: 500 (bad).
+*/
 export function mgPutJSON(url, jsonableObject) {
 
-const requestData = {
-  url: url,
-  method: 'PUT',
-};
-const body = JSON.stringify(jsonableObject)
+  const requestData = {
+    url: url,
+    method: 'PUT',
+  };
+  const body = JSON.stringify(jsonableObject)
 
-winston.debug(new Date(), `put to ${requestData.url}, body: `, body)
+  winston.debug(new Date(), `put to ${requestData.url}, body: `, body)
 
-const result = fetch(requestData.url, {
-  method: requestData.method,
-  headers: getHeaders(requestData),
-  body: body,
-})
-.then(res => checkHTTPStatus(res))
-.catch(err => logError("mgPutJSON, err: ", err))
-//.then(res => logResult("mgPutJSON, res: ", res))
+  const result = fetch(requestData.url, {
+    method: requestData.method,
+    headers: getHeaders(requestData),
+    body: body,
+  })
+  .then(res => res.json())
+  .then(json => checkErrors(json))
 
-return result
+  return result
 }
 
 
