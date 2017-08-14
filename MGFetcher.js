@@ -73,7 +73,6 @@ export function mgFetchJSON(url) {
     headers: getHeaders(requestData),
   })
   .then(res => res.json())
-  //.then(json => checkErrors(json))
 
   return result
 }
@@ -97,7 +96,6 @@ export function mgPutJSON(url, jsonableObject) {
     body: body,
   })
   .then(res => res.json())
-  .then(json => checkErrors(json))
 
   return result
 }
