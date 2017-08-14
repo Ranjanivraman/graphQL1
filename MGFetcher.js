@@ -56,11 +56,6 @@ function checkErrors(obj) {
   return obj
 }
 
-function logError(prefix, err) {
-    winston.debug(prefix, err)
-    throw err
-}
-
 function logResult(prefix, res) {
   winston.debug(prefix, res)
   return res
@@ -78,7 +73,7 @@ export function mgFetchJSON(url) {
     headers: getHeaders(requestData),
   })
   .then(res => res.json())
-  .then(json => checkErrors(json))
+  //.then(json => checkErrors(json))
 
   return result
 }
