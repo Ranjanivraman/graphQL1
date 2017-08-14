@@ -43,24 +43,6 @@ function checkHTTPStatus(res) {
   return res
 }
 
-function checkErrors(obj) {
-  if (obj == null || obj == undefined) {
-    return {}
-  }
-
-  if (obj["messages"] != null) {
-    const catMessage = obj.messages.error.map(obj => obj.message).join('; ')
-    throw catMessage
-  }
-
-  return obj
-}
-
-function logResult(prefix, res) {
-  winston.debug(prefix, res)
-  return res
-}
-
 export function mgFetchJSON(url) {
   const requestData = {
     url: url,
