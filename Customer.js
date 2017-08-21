@@ -6,8 +6,10 @@ import {
   GraphQLObjectType,
 } from 'graphql';
 import { CustomerFetcher } from './CustomerFetcher';
+import { OrderFetcher } from './OrderFetcher';
 import { CustomerAddressFetcher } from './CustomerAddressFetcher';
 import { CustomerAddressType } from './CustomerAddress';
+import { OrderType } from './Order';
 import { ISO8601Date } from './ISO8601Date';
 const moment = require('moment');
 
@@ -76,6 +78,13 @@ export const CustomerType = new GraphQLObjectType({
     lastname: {
       description: 'enter your description',
       type: GraphQLString,
+    },
+    orders: {
+      type: new GraphQLList(OrderType),
+      resolve: (obj, args, ctx) => {
+        const sku = obj.sku
+        return OrderFetcher.getOrdersByCustomerId(obj.entity_id)
+      },
     },
     website_id: {
       description: 'enter your description',

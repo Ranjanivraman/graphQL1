@@ -579,6 +579,6 @@ export const OrderType = new GraphQLObjectType({
 export const OrdersQuery = {
   type: new GraphQLList(OrderType),
   resolve: (obj, args, ctx) => {
-    return OrderFetcher.getOrders(ctx.customerId);
+    return OrderFetcher.getOrdersByCustomerId(ctx.customerId);
   },
 };
