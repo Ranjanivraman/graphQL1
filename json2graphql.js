@@ -29,7 +29,7 @@ pbpaste | python -mjson.tool | npm run json2graphql | pbcopy
 
 (the json.tool will sort the json by key name which means your graphql schema will be sorted...SO much handier)
 
-and then go to where ever you want the graphql (probably in an editor window, which has a .json file open) and paste
+and then go to where ever you want the graphql (probably in an editor window, which has a .js file open) and paste
 
 Be sure to examine the output closely.  I have found that when there are subobjects, the subobject graphql _is_ created correctly, but the attributes of the subobject are _also_ merged into the attributes of the parent.  So, you may find that you need to remove these.  I did have a look to see if I could fix this in the source, but, let's face it: it is JavaScript.  Once you have driven a Cadillac (Swift), it isn't that it is difficult to go back to a Rambler, it is just that it is so laughably undesirable.
 
