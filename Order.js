@@ -11,6 +11,7 @@ import {
 
 import { OrderFetcher } from './OrderFetcher';
 import { ProductType } from './Product';
+import { DeliveryType } from './Delivery';
 import { ProductFetcher } from './ProductFetcher';
 import { ISO8601Date } from './ISO8601Date';
 
@@ -385,6 +386,16 @@ export const OrderType = new GraphQLObjectType({
       description: 'enter your description',
       type: GraphQLString,
     },
+    delivery: {
+      description: 'delivery info or null if none',
+      type: DeliveryType,
+      resolve: (obj, args, ctx) => {
+        const orderId = obj.increment_id
+        // TODO: need to find the shipping address and get its postcode
+        const postcode = obj.postcode
+        return DeliveryFetcher.getDelivery(orderId, postcode)
+      },
+    }
     discount_amount: {
       description: 'enter your description',
       type: GraphQLFloat,
