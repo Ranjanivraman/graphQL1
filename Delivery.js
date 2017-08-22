@@ -1,5 +1,6 @@
 
 import {
+  GraphQLBoolean,
   GraphQLEnumType,
   GraphQLFloat,
   GraphQLInt,
@@ -11,6 +12,8 @@ import {
 
 import { DeliveryFetcher } from './DeliveryFetcher';
 import { ISO8601Date } from './ISO8601Date';
+var winston = require('winston');
+const moment = require('moment');
 
 
 const AcceptableStatusType = new GraphQLObjectType({
@@ -18,19 +21,22 @@ const AcceptableStatusType = new GraphQLObjectType({
   fields: {
     acceptable: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLBoolean),
+      type: GraphQLBoolean,
     },
     friendly_status: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     status: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     timestamp: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLInt),
+      type: ISO8601Date,
+      resolve: (obj) => {
+        return obj.timestamp * 1000
+      },
     }
   },
 });
@@ -41,21 +47,22 @@ const AcceptableStatusLogsType = new GraphQLObjectType({
   fields: {
     acceptable: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLBoolean),
+      type: GraphQLBoolean,
     },
     friendly_status: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     status: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     timestamp: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLInt),
-      // TODO: Implement resolver for timestamp
-      resolve: () => null,
+      type: ISO8601Date,
+      resolve: (obj) => {
+        return obj.timestamp * 1000
+      },
     }
   },
 });
@@ -66,11 +73,17 @@ const ExpectedDeliveryDatesType = new GraphQLObjectType({
   fields: {
     from: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLInt),
+      type: ISO8601Date,
+      resolve: (obj) => {
+        return obj.from * 1000
+      },
     },
     to: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLInt),
+      type: ISO8601Date,
+      resolve: (obj) => {
+        return obj.to * 1000
+      },
     }
   },
 });
@@ -81,27 +94,27 @@ const OrderShippingAddressType = new GraphQLObjectType({
   fields: {
     city: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     email: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     name: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     postcode: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     region: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     street_one: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     }
   },
 });
@@ -112,21 +125,22 @@ const StatusType = new GraphQLObjectType({
   fields: {
     acceptable: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLBoolean),
+      type: GraphQLBoolean,
     },
     friendly_status: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     status: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     timestamp: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLInt),
-      // TODO: Implement resolver for timestamp
-      resolve: () => null,
+      type: ISO8601Date,
+      resolve: (obj) => {
+        return obj.timestamp * 1000
+      },
     }
   },
 });
@@ -137,21 +151,22 @@ const StatusLogsType = new GraphQLObjectType({
   fields: {
     acceptable: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLBoolean),
+      type: GraphQLBoolean,
     },
     friendly_status: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     status: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     timestamp: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLInt),
-      // TODO: Implement resolver for timestamp
-      resolve: () => null,
+      type: ISO8601Date,
+      resolve: (obj) => {
+        return obj.timestamp * 1000
+      },
     }
   },
 });
@@ -162,84 +177,67 @@ export const DeliveryType = new GraphQLObjectType({
   fields: () => ({
     acceptable_status: {
       description: 'enter your description',
-      type: new GraphQLNonNull(AcceptableStatusType),
+      type: AcceptableStatusType,
     },
     acceptable_status_logs: {
       description: 'enter your description',
-      type: new GraphQLNonNull(new GraphQLList(AcceptableStatusLogsType)),
+      type: new GraphQLList(AcceptableStatusLogsType),
     },
     delivered_date: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLInt),
-      // TODO: Implement resolver for delivered_date
-      resolve: () => null,
+      type: ISO8601Date,
+      resolve: (obj) => {
+        return obj.delivered_date * 1000
+      },
     },
     expected_delivery_dates: {
       description: 'enter your description',
-      type: new GraphQLNonNull(ExpectedDeliveryDatesType),
+      type: ExpectedDeliveryDatesType,
     },
     is_delivered: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLBoolean),
+      type: GraphQLBoolean,
     },
     order_date: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLInt),
-      // TODO: Implement resolver for order_date
-      resolve: () => null,
+      // oddly, this date doesn't need multiplying by 1000! consistency, bah!
+      type: ISO8601Date,
     },
     order_date_pretty: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
-      // TODO: Implement resolver for order_date_pretty
-      resolve: () => null,
+      type: GraphQLString,
     },
     order_id: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     order_shipping_address: {
       description: 'enter your description',
-      type: new GraphQLNonNull(OrderShippingAddressType),
+      type: OrderShippingAddressType,
     },
     status: {
       description: 'enter your description',
-      type: new GraphQLNonNull(StatusType),
+      type: StatusType,
     },
     status_logs: {
       description: 'enter your description',
-      type: new GraphQLNonNull(new GraphQLList(StatusLogsType)),
+      type: new GraphQLList(StatusLogsType),
     },
     success: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLBoolean),
+      type: GraphQLBoolean,
     },
     tracking_carrier: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     tracking_code: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     tracking_link: {
       description: 'enter your description',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     }
   })
 });
-
-export const DeliveryQuery = {
-  type = OrderType,
-  args: {
-    orderId: {
-      type: GraphQLNonNull(GraphQLString),
-    },
-    postcode: {
-      type: GraphQLNonNull(GraphQLString),
-    },
-  },
-  resolve: (obj, {orderId, postcode}, ctx) => {
-    return DeliveryFetcher.getDelivery(orderId, postcode)
-  },
-};

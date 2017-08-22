@@ -11,9 +11,11 @@ import {
 
 import { OrderFetcher } from './OrderFetcher';
 import { ProductType } from './Product';
-import { DeliveryType } from './Delivery';
 import { ProductFetcher } from './ProductFetcher';
+import { DeliveryType } from './Delivery';
+import { DeliveryFetcher } from './DeliveryFetcher';
 import { ISO8601Date } from './ISO8601Date';
+var winston = require('winston');
 
 /*
 N.B. there is another address defined in CustomerAddress.  I have no idea if they are the same or if one is a subset of the other...etc.  If there is some relationship between the two, that should be reflected in the code rather than doing as I have done and making them two completely different, unrelated types.
@@ -240,7 +242,7 @@ var OrderStatusEnum = new GraphQLEnumType({
   name: 'OrderStatus',
   description: 'Where is my order?',
   values: {
-// i lifted these from the spreadsheet: https://missguided.atlassian.net/wiki/display/PROJ/SOMS+Module?preview=%2F130001937%2F131502684%2FOrder_Status_Sequence_v4.xlsx
+    // i lifted these from the spreadsheet: https://missguided.atlassian.net/wiki/display/PROJ/SOMS+Module?preview=%2F130001937%2F131502684%2FOrder_Status_Sequence_v4.xlsx
     holded: { value: "holded", },
     pending: { value: "pending", },
     fraud: { value: "fraud", },
@@ -391,11 +393,11 @@ export const OrderType = new GraphQLObjectType({
       type: DeliveryType,
       resolve: (obj, args, ctx) => {
         const orderId = obj.increment_id
-        // TODO: need to find the shipping address and get its postcode
-        const postcode = obj.postcode
+        const shippingAddress = obj.addresses.find(elem => elem.address_type == 'shipping')
+        const postcode = shippingAddress.postcode
         return DeliveryFetcher.getDelivery(orderId, postcode)
       },
-    }
+    },
     discount_amount: {
       description: 'enter your description',
       type: GraphQLFloat,
@@ -462,7 +464,7 @@ export const OrderType = new GraphQLObjectType({
     },
     /*
     order_items contains multiple items for each item ordered!  It has something to do with 'simple' and 'configurable' products.  It deserves careful consideration as to what is actually the best way to represent this to the graphql client.  FTM, I've added a parameter so the client can ask for all or just parent or just child.
-      */
+    */
     order_items: {
       description: 'Items on the order; use item_type to choose PARENT, CHILD or ALL',
       type: new GraphQLList(OrderItemType),
