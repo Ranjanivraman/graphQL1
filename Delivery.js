@@ -16,60 +16,8 @@ var winston = require('winston');
 const moment = require('moment');
 
 
-const AcceptableStatusType = new GraphQLObjectType({
-  name: 'acceptable_status',
-  fields: {
-    acceptable: {
-      description: 'enter your description',
-      type: GraphQLBoolean,
-    },
-    friendly_status: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    status: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    timestamp: {
-      description: 'enter your description',
-      type: ISO8601Date,
-      resolve: (obj) => {
-        return obj.timestamp * 1000
-      },
-    }
-  },
-});
-
-
-const AcceptableStatusLogsType = new GraphQLObjectType({
-  name: 'acceptable_status_logs',
-  fields: {
-    acceptable: {
-      description: 'enter your description',
-      type: GraphQLBoolean,
-    },
-    friendly_status: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    status: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    timestamp: {
-      description: 'enter your description',
-      type: ISO8601Date,
-      resolve: (obj) => {
-        return obj.timestamp * 1000
-      },
-    }
-  },
-});
-
-
-const ExpectedDeliveryDatesType = new GraphQLObjectType({
-  name: 'expected_delivery_dates',
+const DeliveryExpectedDatesType = new GraphQLObjectType({
+  name: 'DeliveryExpectedDatesType',
   fields: {
     from: {
       description: 'enter your description',
@@ -89,8 +37,8 @@ const ExpectedDeliveryDatesType = new GraphQLObjectType({
 });
 
 
-const OrderShippingAddressType = new GraphQLObjectType({
-  name: 'order_shipping_address',
+const DeliveryOrderShippingAddressType = new GraphQLObjectType({
+  name: 'DeliveryOrderShippingAddressType',
   fields: {
     city: {
       description: 'enter your description',
@@ -120,34 +68,8 @@ const OrderShippingAddressType = new GraphQLObjectType({
 });
 
 
-const StatusType = new GraphQLObjectType({
-  name: 'status',
-  fields: {
-    acceptable: {
-      description: 'enter your description',
-      type: GraphQLBoolean,
-    },
-    friendly_status: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    status: {
-      description: 'enter your description',
-      type: GraphQLString,
-    },
-    timestamp: {
-      description: 'enter your description',
-      type: ISO8601Date,
-      resolve: (obj) => {
-        return obj.timestamp * 1000
-      },
-    }
-  },
-});
-
-
-const StatusLogsType = new GraphQLObjectType({
-  name: 'status_logs',
+const DeliveryStatusType = new GraphQLObjectType({
+  name: 'DeliveryStatusType',
   fields: {
     acceptable: {
       description: 'enter your description',
@@ -173,15 +95,15 @@ const StatusLogsType = new GraphQLObjectType({
 
 
 export const DeliveryType = new GraphQLObjectType({
-  name: 'Delivery',
+  name: 'DeliveryType',
   fields: () => ({
     acceptable_status: {
       description: 'enter your description',
-      type: AcceptableStatusType,
+      type: DeliveryStatusType,
     },
     acceptable_status_logs: {
       description: 'enter your description',
-      type: new GraphQLList(AcceptableStatusLogsType),
+      type: new GraphQLList(DeliveryStatusType),
     },
     delivered_date: {
       description: 'enter your description',
@@ -190,9 +112,10 @@ export const DeliveryType = new GraphQLObjectType({
         return obj.delivered_date * 1000
       },
     },
-    expected_delivery_dates: {
+    delivery_expected_dates: {
       description: 'enter your description',
-      type: ExpectedDeliveryDatesType,
+      type: DeliveryExpectedDatesType,
+      resolve: (obj) => obj.expected_delivery_dates,
     },
     is_delivered: {
       description: 'enter your description',
@@ -213,15 +136,15 @@ export const DeliveryType = new GraphQLObjectType({
     },
     order_shipping_address: {
       description: 'enter your description',
-      type: OrderShippingAddressType,
+      type: DeliveryOrderShippingAddressType,
     },
     status: {
       description: 'enter your description',
-      type: StatusType,
+      type: DeliveryStatusType,
     },
     status_logs: {
       description: 'enter your description',
-      type: new GraphQLList(StatusLogsType),
+      type: new GraphQLList(DeliveryStatusType),
     },
     success: {
       description: 'enter your description',
