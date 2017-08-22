@@ -81,9 +81,14 @@ export const CustomerType = new GraphQLObjectType({
     },
     orders: {
       type: new GraphQLList(OrderType),
-      resolve: (obj, args, ctx) => {
+      args: {
+        orderIds: {
+          type: new GraphQLList(new GraphQLNonNull(GraphQLString)),
+        },
+      },
+      resolve: (obj, {orderIds}, ctx) => {
         const sku = obj.sku
-        return OrderFetcher.getOrdersByCustomerId(obj.entity_id)
+        return OrderFetcher.getOrdersByCustomerId(obj.entity_id, orderIds)
       },
     },
     website_id: {
