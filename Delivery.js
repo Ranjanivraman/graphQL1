@@ -16,8 +16,8 @@ var winston = require('winston');
 const moment = require('moment');
 
 
-const DeliveryExpectedDatesType = new GraphQLObjectType({
-  name: 'DeliveryExpectedDatesType',
+const DeliveryExpectedDateRangeType = new GraphQLObjectType({
+  name: 'DeliveryExpectedDateRangeType',
   fields: {
     from: {
       description: 'enter your description',
@@ -112,9 +112,9 @@ export const DeliveryType = new GraphQLObjectType({
         return obj.delivered_date * 1000
       },
     },
-    delivery_expected_dates: {
+    delivery_expected_date_range: {
       description: 'enter your description',
-      type: DeliveryExpectedDatesType,
+      type: DeliveryExpectedDateRangeType,
       resolve: (obj) => obj.expected_delivery_dates,
     },
     is_delivered: {
