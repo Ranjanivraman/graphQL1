@@ -389,6 +389,15 @@ export const OrderType = new GraphQLObjectType({
       type: GraphQLString,
     },
     delivery: {
+      /*
+      Consider adding a parameter to only include delivery if the order is undelivered or delivered in the last n days...or add multiple params, whatever it takes!  ie: includeDeliveredIfWithin: <time period>...could be as simple as an integer representing number of days, or could use the iso8601 duration standard to specify relative date/time (which would be useful in other contexts, so might be handy to standardise on it!).
+
+      accurate, but confusing, name for this would be: includeIfUndeliveredBefore: <datetime or duration>  ie it was not delivered before that date and it has since either remained undelivered or has been delivered
+
+      That way the delivery could be requested along with the order, and only the small proportion of undelivered and recently delivered orders will actually carry data; the rest would have delivery = nil.
+
+      make the default (ie no params) mean return nil for delivery regardless of status
+      */
       description: 'delivery info or null if none',
       type: DeliveryType,
       resolve: (obj, args, ctx) => {
