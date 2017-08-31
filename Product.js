@@ -4,12 +4,14 @@ import {
   GraphQLString,
   GraphQLInt,
   GraphQLFloat,
+  GraphQLList,
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLID,
   GraphQLNonNull
 } from 'graphql';
 import { ProductFetcher } from './ProductFetcher';
+var winston = require('winston');
 
 export const ProductType = new GraphQLObjectType({
   name: 'Product',
@@ -168,6 +170,9 @@ export const ProductType = new GraphQLObjectType({
     name: {
       description: 'enter your description',
       type: GraphQLString,
+      resolve: (obj) => {
+        return obj.name;
+      },
     },
     news_from_date: {
       description: 'enter your description',
@@ -308,10 +313,25 @@ export const ProductBySKUQuery = {
   type: ProductType,
   args: {
     sku: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
     },
   },
   resolve: (obj, {sku}) => {
     return ProductFetcher.getProductBySKU(sku);
+  },
+};
+
+export const ProductsByPageQuery = {
+  type: new GraphQLList(ProductType),
+  args: {
+    page: {
+      type: new GraphQLNonNull(GraphQLInt),
+    },
+    limit: {
+      type: new GraphQLNonNull(GraphQLInt),
+    },
+  },
+  resolve: (obj, {page, limit}) => {
+    return ProductFetcher.getProductsByPage(page, limit);
   },
 };

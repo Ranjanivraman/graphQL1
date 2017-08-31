@@ -1,9 +1,18 @@
 
 import {
   mgFetchOne,
+  mgFetchMany,
 } from './MGFetcher';
+var winston = require('winston');
+
 
 export const ProductFetcher = {
+  getProductsByPage(page, limit) {
+    const url = `https://api-test2.mgnonprod.co.uk/api/rest/products?page=${page}&limit=${limit}`;
+    return mgFetchMany(url);
+  },
+
+  //
   getProductBySKU(sku) {
     const url = `https://api-test2.mgnonprod.co.uk/api/rest/products?filter[1][attribute]=sku&filter[1][eq]=${sku}`;
 

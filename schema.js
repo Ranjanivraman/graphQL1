@@ -4,7 +4,10 @@ import {
   GraphQLObjectType,
 } from 'graphql';
 import { OrdersQuery } from './Order';
-import { ProductBySKUQuery } from './Product'
+import {
+  ProductBySKUQuery,
+  ProductsByPageQuery,
+ } from './Product'
 import {
   ConnectedCustomerQuery,
   CustomerByEmailQuery,
@@ -23,6 +26,7 @@ const query = new GraphQLObjectType({
     connectedCustomer: ConnectedCustomerQuery,
     customerByEmail: CustomerByEmailQuery,
     productBySKU: ProductBySKUQuery,
+    productsByPage: ProductsByPageQuery,
   },
 });
 
