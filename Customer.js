@@ -1,5 +1,6 @@
 import {
   GraphQLInputObjectType,
+  GraphQLFloat,
   GraphQLList,
   GraphQLNonNull,
   GraphQLString,
@@ -46,6 +47,41 @@ export const CustomerType = new GraphQLObjectType({
     created_at: {
       description: 'enter your description',
       type: ISO8601Date,
+    },
+    cat: {
+      description: 'the whole cat',
+      args: {
+        kind: {
+          type: new GraphQLNonNull(GraphQLString),
+        },
+      },
+      type: new GraphQLObjectType({
+      name: 'Cat',
+        fields: {
+          kind: {
+            description: 'breed',
+            type: GraphQLString,
+          },
+          fname: {
+            description: 'Enter your pets name',
+            type: GraphQLString,
+            resolve: (obj, args, ctx) => {
+              const listofCats = [obj.firstname, obj.lastname];
+              const rand = listofCats[Math.floor(Math.random() * listofCats.length)];
+              return rand;
+            },
+          },
+          weightKg: {
+            description: 'how heavy',
+            type: GraphQLFloat,
+            resolve: () => 42.5,
+          },
+        },
+      }),
+      resolve: (obj, {kind}, ctx) => {
+        obj["kind"] = kind;
+        return obj;
+      },
     },
     created_in: {
       description: 'enter your description',
